@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>Auth System</title>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white w-[380px] p-8 rounded-2xl shadow-2xl">
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Welcome</h1>
+
+    <!-- Tabs -->
+    <div class="flex mb-6 bg-gray-200 rounded-lg overflow-hidden">
+      <button onclick="showLogin()" id="loginTab" class="w-1/2 py-3 bg-blue-600 text-white font-semibold">Login</button>
+      <button onclick="showSignup()" id="signupTab" class="w-1/2 py-3 text-gray-600 font-semibold">Signup</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" class="space-y-4">
+      <input type="email" id="loginEmail" placeholder="Email" required class="w-full border p-3 rounded-lg outline-none focus:border-blue-500" />
+      <input type="password" id="loginPassword" placeholder="Password" required class="w-full border p-3 rounded-lg outline-none focus:border-blue-500" />
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">Login</button>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm" class="space-y-4 hidden">
+      <input type="text" id="signupName" placeholder="Full Name" required class="w-full border p-3 rounded-lg outline-none focus:border-blue-500" />
+      <input type="email" id="signupEmail" placeholder="Email" required class="w-full border p-3 rounded-lg outline-none focus:border-blue-500" />
+      <input type="password" id="signupPassword" placeholder="Password" required class="w-full border p-3 rounded-lg outline-none focus:border-blue-500" />
+      <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition">Create Account</button>
+    </form>
+  </div>
+
+  <script>
+    // 1. AAPKA NAYA URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxd6-2FCAjDnyn2f1fFgsvkCCmZvbJt14yBcUIyweyCUetS5grwplM6c6s4zEhBp_4X/exec";
+
+    function showLogin() {
+      document.getElementById('loginForm').classList.remove('hidden');
+      document.getElementById('signupForm').classList.add('hidden');
+      document.getElementById('loginTab').classList.add('bg-blue-600', 'text-white');
+      document.getElementById('signupTab').classList.remove('bg-blue-600', 'text-white');
+    }
+
+    function showSignup() {
+      document.getElementById('signupForm').classList.remove('hidden');
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('signupTab').classList.add('bg-blue-600', 'text-white');
+      document.getElementById('loginTab').classList.remove('bg-blue-600', 'text-white');
+    }
+
+    // --- SIGNUP LOGIC ---
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.innerText = "Saving to Sheet...";
+      btn.disabled = true;
+
+      const data = {
+        action: "signup",
+        name: document.getElementById('signupName').value,
+        email: document.getElementById('signupEmail').value,
+        password: document.getElementById('signupPassword').value
+      };
+
+      fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
+      .then(() => {
+        alert("Signup Successful! ✅\nData saved in Sheet. Now please Login.");
+        showLogin();
+      })
+      .catch(() => alert("Signup failed!"))
+      .finally(() => { btn.innerText = "Create Account"; btn.disabled = false; });
+    });
+
+    // --- LOGIN LOGIC ---
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.innerText = "Verifying...";
+      btn.disabled = true;
+
+      const data = {
+        action: "login",
+        email: document.getElementById('loginEmail').value,
+        password: document.getElementById('loginPassword').value
+      };
+
+      fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) })
+      .then(res => res.json())
+      .then(res => {
+        if (res.result === "success") {
+          alert("Login Successful! Welcome " + res.username);
+          window.location.href = "landing.html"; // Redirect to landing page
+        } else {
+          alert("Invalid Email or Password! ❌");
+        }
+      })
+      .catch(() => alert("Error connecting to database!"))
+      .finally(() => { btn.innerText = "Login"; btn.disabled = false; });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>Student Dashboard - MY Burrows</title>
+  <style>
+    /* Custom Scrollbar Styling */
+    .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+    .custom-scroll::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+    
+    #sidebar { transition: transform 0.3s ease-in-out; }
+    #main-wrapper { transition: padding-left 0.3s ease-in-out; }
+  </style>
+</head>
+
+<body class="bg-gray-100 overflow-x-hidden">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-blue-900 text-white transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg">
+    <div class="p-5 text-xl font-bold border-b border-blue-800 flex items-center gap-3">
+      <button onclick="toggleSidebar()" class="hover:bg-blue-800 p-1 rounded-full transition cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+      </button>
+      <span>My Dashboard</span>
+    </div>
+    <nav class="p-4 space-y-2">
+      <a href="#" class="block p-4 rounded-xl hover:bg-blue-800 transition">🏠 Home</a>
+      <a href="#" class="block p-4 rounded-xl hover:bg-blue-800 transition">🏠 Dashboard</a>
+      <a href="#" class="block p-4 rounded-xl hover:bg-blue-800 transition">📊 Reports</a>
+      <a href="#" class="block p-4 rounded-xl hover:bg-blue-800 transition">⚙️ Settings</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div id="main-wrapper" class="min-h-screen flex flex-col transition-all duration-300">
+    <!-- NAVBAR -->
+    <header class="bg-white shadow-sm p-4 flex justify-between items-center sticky top-0 z-40">
+      <div class="flex items-center gap-4">
+        <button onclick="toggleSidebar()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2">
+          ☰ Menu
+        </button>
+        <h2 class="text-xl font-bold text-gray-800">MY Burrows</h2>
+      </div>
+      <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white">JD</div>
+    </header>
+
+    <main class="p-6">
+      <!-- Container centered with max-width -->
+      <div class="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-gray-200 min-h-[80vh] max-w-6xl mx-auto">
+        
+        <!-- Header Section -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+          <div>
+            <h1 class="text-3xl font-extrabold text-blue-600">Student Directory</h1>
+            <p class="text-gray-500 mt-1">Manage and view student records below.</p>
+          </div>
+          <button onclick="openModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold transition shadow-md">
+            + Add New
+          </button>
+        </div>
+
+        <!-- TABLE CONTAINER -->
+        <div class="w-full">
+          <div class="overflow-x-auto overflow-y-auto rounded-2xl border border-gray-100 custom-scroll shadow-inner" style="max-height: 500px;">
+            <table class="w-full text-left border-collapse min-w-[1000px]">
+              <thead class="sticky top-0 bg-gray-50 z-10 shadow-sm">
+                <tr class="border-b border-gray-100">
+                  <th class="p-4 font-bold text-gray-700 whitespace-nowrap">Roll Number</th>
+                  <th class="p-4 font-bold text-gray-700 whitespace-nowrap">Name</th>
+                  <th class="p-4 font-bold text-gray-700 whitespace-nowrap">Address</th>
+                  <th class="p-4 font-bold text-gray-700 whitespace-nowrap">Phone Number</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody" class="divide-y divide-gray-50">
+                <tr class="hover:bg-blue-50/30 transition">
+                  <td class="p-4 text-gray-600 font-medium whitespace-nowrap">#101</td>
+                  <td class="p-4 text-gray-800 font-semibold whitespace-nowrap">Amit Sharma</td>
+                  <td class="p-4 text-gray-600">Sector 15, Vasundhara, Delhi</td>
+                  <td class="p-4 text-gray-600 whitespace-nowrap">+91 98765 43210</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- GALLERY SECTION (Clickable Grid & Flex) -->
+<div class="mt-12 space-y-10">
+  
+  <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-blue-600 pl-3">Interactive Gallery</h2>
+
+  <!-- 1. GRID SECTION -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    
+    <!-- Card 1 (Clickable Image) -->
+    <a href="https://images.unsplash.com/photo-1498050108023-c5249f4df085" target="_blank" class="block bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 group cursor-pointer hover:shadow-xl transition-all">
+      <div class="relative overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500" alt="Tech">
+        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <span class="text-white font-bold bg-blue-600/80 px-4 py-2 rounded-full text-sm">View Full Image</span>
+        </div>
+      </div>
+      <div class="p-4">
+        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded">IMAGE LINK</span>
+        <h3 class="mt-2 font-bold text-gray-800 group-hover:text-blue-600 transition">Modern Tech Layout</h3>
+      </div>
+    </a>
+
+    <!-- Card 2 (Video remains the same as it's already interactive) -->
+    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
+      <div class="aspect-video bg-gray-200">
+        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="p-4">
+        <span class="bg-red-100 text-red-600 text-xs font-bold px-2 py-1 rounded">YOUTUBE VIDEO</span>
+        <h3 class="mt-2 font-bold text-gray-800">Play Content Directly</h3>
+      </div>
+    </div>
+
+    <!-- Card 3 (Clickable Image) -->
+    <a href="https://images.unsplash.com/photo-1555066931-4365d14bab8c" target="_blank" class="block bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 group cursor-pointer hover:shadow-xl transition-all">
+      <div class="relative overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500" alt="Code">
+        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <span class="text-white font-bold bg-green-600/80 px-4 py-2 rounded-full text-sm">View Source</span>
+        </div>
+      </div>
+      <div class="p-4">
+        <span class="bg-green-100 text-green-600 text-xs font-bold px-2 py-1 rounded">SOURCE LINK</span>
+        <h3 class="mt-2 font-bold text-gray-800 group-hover:text-green-600 transition">Development Assets</h3>
+      </div>
+    </a>
+  </div>
+
+  <!-- 2. FLEX SECTION (Clickable Chips) -->
+  <div class="bg-blue-50 p-6 rounded-2xl">
+    <p class="text-sm font-semibold text-blue-800 mb-4 text-center">Clickable Tech Stack (Flexbox)</p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <button onclick="alert('Tailwind CSS Selected')" class="bg-white px-6 py-3 rounded-full shadow-sm font-bold text-blue-600 border border-blue-100 hover:bg-blue-600 hover:text-white transition-all cursor-pointer active:scale-95">Tailwind</button>
+      <button onclick="alert('Grid Layout Selected')" class="bg-white px-6 py-3 rounded-full shadow-sm font-bold text-blue-600 border border-blue-100 hover:bg-blue-600 hover:text-white transition-all cursor-pointer active:scale-95">Grid</button>
+      <button onclick="alert('Flexbox Selected')" class="bg-white px-6 py-3 rounded-full shadow-sm font-bold text-blue-600 border border-blue-100 hover:bg-blue-600 hover:text-white transition-all cursor-pointer active:scale-95">Flex</button>
+      <button onclick="alert('Responsive Design Selected')" class="bg-white px-6 py-3 rounded-full shadow-sm font-bold text-blue-600 border border-blue-100 hover:bg-blue-600 hover:text-white transition-all cursor-pointer active:scale-95">Responsive</button>
+    </div>
+  </div>
+
+</div>
+    </main>
+  </div>
+
+  <!-- MODAL HTML -->
+  <div id="modal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6">
+      <div class="flex justify-between items-center mb-6 border-b pb-3">
+        <h3 class="text-2xl font-bold text-gray-800">Add New Entry</h3>
+        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+      </div>
+      <form id="studentForm" class="space-y-4">
+        <input type="text" id="rollNo" required placeholder="Roll Number (e.g. #105)" class="w-full border border-gray-300 p-3 rounded-lg outline-none focus:border-blue-500">
+        <input type="text" id="stuName" required placeholder="Full Name" class="w-full border border-gray-300 p-3 rounded-lg outline-none focus:border-blue-500">
+        <input type="text" id="stuAddr" required placeholder="Address" class="w-full border border-gray-300 p-3 rounded-lg outline-none focus:border-blue-500">
+        <input type="text" id="stuPhone" required placeholder="Phone Number" class="w-full border border-gray-300 p-3 rounded-lg outline-none focus:border-blue-500">
+        <div class="flex gap-3 pt-4">
+          <button type="button" onclick="closeModal()" class="flex-1 bg-gray-100 py-3 rounded-xl font-semibold">Cancel</button>
+          <button type="submit" class="flex-1 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition">Save Entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // 1. Aapka Google Sheet API URL
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxAfWwwvoygmhkCI3Ag1YlenRqQtHPOG0Y0HEhPMKOTMrb-PwKdiWEXzZK7PA1drhiKLg/exec";
+
+const sidebar = document.getElementById("sidebar");
+const wrapper = document.getElementById("main-wrapper");
+const modal = document.getElementById("modal");
+const studentForm = document.getElementById("studentForm");
+const tableBody = document.getElementById("tableBody");
+let sidebarOpen = false;
+
+// Sidebar Toggle Logic
+function toggleSidebar() {
+  if (!sidebarOpen) {
+    sidebar.classList.remove("-translate-x-full");
+    if (window.innerWidth >= 1024) { wrapper.style.paddingLeft = "256px"; }
+    sidebarOpen = true;
+  } else {
+    sidebar.classList.add("-translate-x-full");
+    wrapper.style.paddingLeft = "0px";
+    sidebarOpen = false;
+  }
+}
+// Modal Controls
+function openModal() { modal.classList.remove("hidden"); }
+function closeModal() { modal.classList.add("hidden"); studentForm.reset(); }
+
+// Add New Entry Logic (With Sheet Sync)
+studentForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  const originalText = submitBtn.innerText;
+  submitBtn.innerText = "Saving to Sheet..."; 
+  submitBtn.disabled = true;
+
+  const formData = {
+    roll: document.getElementById("rollNo").value,
+    name: document.getElementById("stuName").value,
+    address: document.getElementById("stuAddr").value,
+    phone: document.getElementById("stuPhone").value
+  };
+
+  // Google Sheet mein bhejna
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors', 
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData),
+  })
+  .then(() => {
+    // Table mein dikhana
+    const newRow = `
+      <tr class="hover:bg-blue-50/30 transition">
+        <td class="p-4 text-gray-600 font-medium whitespace-nowrap">${formData.roll}</td>
+        <td class="p-4 text-gray-800 font-semibold whitespace-nowrap">${formData.name}</td>
+        <td class="p-4 text-gray-600">${formData.address}</td>
+        <td class="p-4 text-gray-600 whitespace-nowrap">${formData.phone}</td>
+      </tr>`;
+    
+    tableBody.insertAdjacentHTML('afterbegin', newRow);
+    closeModal();
+    alert("Data stored in sheet! ✅");
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Kuch error aaya!");
+  })
+  .finally(() => {
+    submitBtn.innerText = originalText;
+    submitBtn.disabled = false;
+  });
+});
+
+// Responsive Sidebar adjustment
+window.addEventListener('resize', () => {
+  if (window.innerWidth < 1024) { wrapper.style.paddingLeft = "0px"; }
+  else if (sidebarOpen) { wrapper.style.paddingLeft = "256px"; }
+});
+  </script>
+</body>
+</html>
