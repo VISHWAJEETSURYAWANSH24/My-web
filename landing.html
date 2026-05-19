@@ -35,6 +35,9 @@
       <a href="#" class="block p-4 rounded-xl hover:bg-blue-800 transition">🏠 Dashboard</a>
       <a href="#" class="block p-4 rounded-xl hover:bg-blue-800 transition">📊 Reports</a>
       <a href="#" class="block p-4 rounded-xl hover:bg-blue-800 transition">⚙️ Settings</a>
+      <a href="#" onclick="openSheet()" class="block p-4 rounded-xl hover:bg-blue-800 transition">
+  📄 Open Google Sheet
+</a>
     </nav>
   </aside>
 
@@ -49,6 +52,9 @@
         <h2 class="text-xl font-bold text-gray-800">MY Burrows</h2>
       </div>
       <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white">JD</div>
+      <button onclick="downloadSheet()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+  ⬇ Download Sheet
+</button>
     </header>
 
     <main class="p-6">
@@ -90,70 +96,7 @@
           </div>
         </div>
       </div>
-      <!-- GALLERY SECTION (Clickable Grid & Flex) -->
-<div class="mt-12 space-y-10">
-  
-  <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-blue-600 pl-3">Interactive Gallery</h2>
-
-  <!-- 1. GRID SECTION -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    
-    <!-- Card 1 (Clickable Image) -->
-    <a href="https://images.unsplash.com/photo-1498050108023-c5249f4df085" target="_blank" class="block bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 group cursor-pointer hover:shadow-xl transition-all">
-      <div class="relative overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500" alt="Tech">
-        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-          <span class="text-white font-bold bg-blue-600/80 px-4 py-2 rounded-full text-sm">View Full Image</span>
-        </div>
-      </div>
-      <div class="p-4">
-        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded">IMAGE LINK</span>
-        <h3 class="mt-2 font-bold text-gray-800 group-hover:text-blue-600 transition">Modern Tech Layout</h3>
-      </div>
-    </a>
-
-    <!-- Card 2 (Video remains the same as it's already interactive) -->
-    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
-      <div class="aspect-video bg-gray-200">
-        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="p-4">
-        <span class="bg-red-100 text-red-600 text-xs font-bold px-2 py-1 rounded">YOUTUBE VIDEO</span>
-        <h3 class="mt-2 font-bold text-gray-800">Play Content Directly</h3>
-      </div>
-    </div>
-
-    <!-- Card 3 (Clickable Image) -->
-    <a href="https://images.unsplash.com/photo-1555066931-4365d14bab8c" target="_blank" class="block bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 group cursor-pointer hover:shadow-xl transition-all">
-      <div class="relative overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500" alt="Code">
-        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-          <span class="text-white font-bold bg-green-600/80 px-4 py-2 rounded-full text-sm">View Source</span>
-        </div>
-      </div>
-      <div class="p-4">
-        <span class="bg-green-100 text-green-600 text-xs font-bold px-2 py-1 rounded">SOURCE LINK</span>
-        <h3 class="mt-2 font-bold text-gray-800 group-hover:text-green-600 transition">Development Assets</h3>
-      </div>
-    </a>
-  </div>
-
-  <!-- 2. FLEX SECTION (Clickable Chips) -->
-  <div class="bg-blue-50 p-6 rounded-2xl">
-    <p class="text-sm font-semibold text-blue-800 mb-4 text-center">Clickable Tech Stack (Flexbox)</p>
-    <div class="flex flex-wrap justify-center gap-4">
-      <button onclick="alert('Tailwind CSS Selected')" class="bg-white px-6 py-3 rounded-full shadow-sm font-bold text-blue-600 border border-blue-100 hover:bg-blue-600 hover:text-white transition-all cursor-pointer active:scale-95">Tailwind</button>
-      <button onclick="alert('Grid Layout Selected')" class="bg-white px-6 py-3 rounded-full shadow-sm font-bold text-blue-600 border border-blue-100 hover:bg-blue-600 hover:text-white transition-all cursor-pointer active:scale-95">Grid</button>
-      <button onclick="alert('Flexbox Selected')" class="bg-white px-6 py-3 rounded-full shadow-sm font-bold text-blue-600 border border-blue-100 hover:bg-blue-600 hover:text-white transition-all cursor-pointer active:scale-95">Flex</button>
-      <button onclick="alert('Responsive Design Selected')" class="bg-white px-6 py-3 rounded-full shadow-sm font-bold text-blue-600 border border-blue-100 hover:bg-blue-600 hover:text-white transition-all cursor-pointer active:scale-95">Responsive</button>
-    </div>
-  </div>
-
-</div>
-    </main>
-  </div>
-
-  <!-- MODAL HTML -->
+      <!-- MODAL HTML -->
   <div id="modal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6">
       <div class="flex justify-between items-center mb-6 border-b pb-3">
@@ -175,7 +118,7 @@
 
   <script>
     // 1. Aapka Google Sheet API URL
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxAfWwwvoygmhkCI3Ag1YlenRqQtHPOG0Y0HEhPMKOTMrb-PwKdiWEXzZK7PA1drhiKLg/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby08KMobjG9nTaYygmwYmtlZBtshs4I4teGAxpTve5yvkwV2mzQD-1Ex09oQUfDADDgjQ/exec";
 
 const sidebar = document.getElementById("sidebar");
 const wrapper = document.getElementById("main-wrapper");
@@ -209,12 +152,17 @@ studentForm.addEventListener("submit", function(e) {
   submitBtn.innerText = "Saving to Sheet..."; 
   submitBtn.disabled = true;
 
-  const formData = {
+  // studentForm.addEventListener ke andar sirf ye "formData" wala part update hoga
+const formData = {
     roll: document.getElementById("rollNo").value,
     name: document.getElementById("stuName").value,
     address: document.getElementById("stuAddr").value,
-    phone: document.getElementById("stuPhone").value
-  };
+    phone: document.getElementById("stuPhone").value,
+    
+    // --- NAYE FUNCTIONS (Bina puraana code badle) ---
+    addedBy: localStorage.getItem("activeUserName") || "Unknown User", // Login se naam uthayega
+    entryDate: new Date().toLocaleString() // Automatic current Date aur Time
+};
 
   // Google Sheet mein bhejna
   fetch(SCRIPT_URL, {
@@ -252,6 +200,21 @@ window.addEventListener('resize', () => {
   if (window.innerWidth < 1024) { wrapper.style.paddingLeft = "0px"; }
   else if (sidebarOpen) { wrapper.style.paddingLeft = "256px"; }
 });
+// 👉 IMPORTANT: apna actual Google Sheet link yahan daalna
+
+const SHEET_ID = "1jDYKRTfrtTrOuX3ZsTlvTCD__i-4w2Efzg8Rb0Armgk";
+
+const SHEET_OPEN = `https://docs.google.com/spreadsheets/d/1jDYKRTfrtTrOuX3ZsTlvTCD__i-4w2Efzg8Rb0Armgk/edit?gid=0#gid=0`;
+
+const SHEET_DOWNLOAD = `https://docs.google.com/spreadsheets/d/1jDYKRTfrtTrOuX3ZsTlvTCD__i-4w2Efzg8Rb0Armgk/export?format=csv`;
+
+function openSheet() {
+  window.open(SHEET_OPEN, "_blank");
+}
+
+function downloadSheet() {
+  window.open(SHEET_DOWNLOAD, "_blank");
+}
   </script>
 </body>
 </html>
